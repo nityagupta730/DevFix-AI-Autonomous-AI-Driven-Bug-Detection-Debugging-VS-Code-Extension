@@ -1,0 +1,27 @@
+# Python virtual environment
+backend/.venv/
+
+# Environment variables and secrets
+.env
+backend/.env
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Pytest cache
+.pytest_cache/
+
+# VS Code
+.vscode/
+
+# Node dependencies
+node_modules/
+
+# Build output
+dist/
+out/
+
+# OS files
+.DS_Store
+Thumbs.db
