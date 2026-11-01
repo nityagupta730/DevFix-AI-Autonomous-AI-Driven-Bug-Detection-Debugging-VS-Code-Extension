@@ -1,0 +1,115 @@
+{
+  "name": "my-copilot",
+  "displayName": "My Copilot",
+  "description": "AI code assistant: error fix, explain, review (Ollama backend)",
+  "version": "0.0.2",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "myai.explain",
+        "title": "AI: Explain Code"
+      },
+      {
+        "command": "myai.reviewFile",
+        "title": "AI: Review File"
+      },
+      {
+        "command": "myai.clearReview",
+        "title": "AI: Clear Review Markers"
+      },
+      {
+        "command": "myai.testConnection",
+        "title": "AI: Test Model Connection"
+      },
+      {
+        "command": "myai.openChat",
+        "title": "AI: Open Chat"
+      },
+      {
+        "command": "myai.clearChat",
+        "title": "AI: Clear Chat"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "myai.explain",
+          "when": "editorHasSelection",
+          "group": "myai@1"
+        },
+        {
+          "command": "myai.reviewFile",
+          "group": "myai@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "My Copilot",
+      "properties": {
+        "myai.ollama.url": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama server URL"
+        },
+        "myai.ollama.model": {
+          "type": "string",
+          "default": "qwen2.5-coder:7b",
+          "description": "Ollama model name (e.g. qwen2.5-coder:3b if 7b is slow)"
+        },
+        "myai.explainLanguage": {
+          "type": "string",
+          "enum": [
+            "Hinglish",
+            "English"
+          ],
+          "default": "Hinglish",
+          "description": "Language used for code explanations"
+        },
+        "myai.fixContextLines": {
+          "type": "number",
+          "default": 10,
+          "description": "Lines of context above/below an error sent to the model"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "myai",
+          "title": "My Copilot",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "myai": [
+        {
+          "type": "webview",
+          "id": "myai.chatView",
+          "name": "Chat"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.90.0",
+    "typescript": "^5.4.0"
+  }
+}
